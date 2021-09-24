@@ -15,6 +15,7 @@ namespace PokerHands.Tests
         [TestCase("2H 3D 5S 9C KD", "2H 3D 5S 9C DS", "Bob", TestName = "K Bob")]
         [TestCase("2C 3H 4S 8C KD", "2H 3D 5S 9C KD", "John", TestName = "John 2nd highest")]
         [TestCase("2C 3H 5S 9C KD", "2H 3D 4S 9C KD", "Bob", TestName = "Bob 3rd highest")]
+        [TestCase("2C 3H 5S 9C KD", "2C 3H 5S 9C KD", "Tie", TestName = "Tie")]
         public void Wins_High_Card(string bobsHand, string johnsHand, string winnerExpected)
         {
             var winner = Poker.Compare(bobsHand, johnsHand);

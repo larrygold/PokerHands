@@ -18,12 +18,10 @@ namespace PokerHands
                 var whoWins = WhoWins(bobsCards, johnsCards, value);
 
                 if (whoWins != null)
-                {
                     return whoWins;
-                }
             }
 
-            return null;
+            return "Tie";
 
         }
 
