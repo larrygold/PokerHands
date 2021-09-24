@@ -38,20 +38,6 @@ namespace PokerHands
         {
             return new HighCard().WhoWins(bobsCards, johnsCards, value);
         }
-
-        private Result WhoWins(char value, bool bobWins, bool johnWins, string combination)
-        {
-            if (bobWins && johnWins)
-                return null;
-
-            if (bobWins)
-                return new Result() {Winner = "Bob", WinningCard = value.ToString(), WinningCombination = combination};
-
-            if (johnWins)
-                return new Result() {Winner = "John", WinningCard = value.ToString(), WinningCombination = combination};
-
-            return null;
-        }
     }
 
     public class Result
