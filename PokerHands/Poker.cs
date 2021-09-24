@@ -11,9 +11,9 @@ namespace PokerHands
             var bobsCards = bobsHand.Split(" ");
             var johnsCards = johnsHand.Split(" ");
 
-            var values = new char[] { '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A' };
+            var values = new char[] { 'A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2' };
 
-            foreach (var value in values.Reverse())
+            foreach (var value in values)
             {
                 var whoWins = WhoWins(bobsCards, johnsCards, value);
 
