@@ -6,9 +6,11 @@ namespace PokerHands.Tests
 {
     public class Tests
     {
+        private Poker _poker;
         [SetUp]
         public void Setup()
         {
+            _poker = new Poker();
         }
 
         [TestCase("2H 3D 5S 9C KD", "2C 3H 4S 8C AH", "John", "A" , TestName = "Ace John")]
@@ -18,7 +20,7 @@ namespace PokerHands.Tests
         [TestCase("2C 3H 5S 9C KD", "2H 3D 4S 9C KD", "Bob", "5", TestName = "Bob 3rd highest")]
         public void High_Card(string bobsHand, string johnsHand, string winnerExpected, string winningCardExpected)
         {
-            var actual = Poker.Compare(bobsHand, johnsHand);
+            var actual = _poker.Compare(bobsHand, johnsHand);
             var expected = new Result() { Winner = winnerExpected, WinningCard = winningCardExpected, WinningCombination = "High Card" };
             expected.Should().BeEquivalentTo(actual);
         }
@@ -26,7 +28,7 @@ namespace PokerHands.Tests
         [TestCase("2C 3H 5S 9C KD", "2C 3H 5S 9C KD", "Tie", TestName = "Tie")]
         public void Tie(string bobsHand, string johnsHand, string winnerExpected)
         {
-            var actual = Poker.Compare(bobsHand, johnsHand);
+            var actual = _poker.Compare(bobsHand, johnsHand);
             var expected = new Result() {Winner = winnerExpected, WinningCard = null, WinningCombination = null};
             expected.Should().BeEquivalentTo(actual);
 
@@ -37,7 +39,7 @@ namespace PokerHands.Tests
         [TestCase("2C 3D 5D QS TC", "1S 3D 3S QS TC", "John", "3", TestName = "John Pair 3")]
         public void Pairs(string bobsHand, string johnsHand, string winnerExpected, string winningCardExpected)
         {
-            var actual = Poker.Compare(bobsHand, johnsHand);
+            var actual = _poker.Compare(bobsHand, johnsHand);
             var expected = new Result() { Winner = winnerExpected, WinningCard = winningCardExpected, WinningCombination = "Pair" };
             expected.Should().BeEquivalentTo(actual);
         }
@@ -46,7 +48,7 @@ namespace PokerHands.Tests
         [TestCase("1C 2D 3H QS QH", "1S 2D 4S QS QD", "John", "4", "High Card", TestName = "John's highest remaining card is higher than Bob's")]
         public void Two_Pairs(string bobsHand, string johnsHand, string winnerExpected, string winningCardExpected, string winningCombination)
         {
-            var actual = Poker.Compare(bobsHand, johnsHand);
+            var actual = _poker.Compare(bobsHand, johnsHand);
             var expected = new Result() { Winner = winnerExpected, WinningCard = winningCardExpected, WinningCombination = winningCombination };
             expected.Should().BeEquivalentTo(actual);
         }
