@@ -31,12 +31,7 @@ namespace PokerHands
 
         private Result WhoWinsPair(string[] bobsCards, string[] johnsCards, char value)
         {
-            var bobHasPair = bobsCards.Count(x => x.Contains(value)) == 2;
-            var johnHasPair = johnsCards.Count(x => x.Contains(value)) == 2;
-            var combination = "Pair";
-
-            return WhoWins(value, bobHasPair, johnHasPair, combination);
-
+            return new Pair().WhoWins(bobsCards, johnsCards, value);
         }
 
         private Result WhoWinsHighCard(string[] bobsCards, string[] johnsCards, char value)
@@ -96,4 +91,20 @@ namespace PokerHands
             return WhoWinsHelper(cardValue, bobHasThisCard, johnHasThisCard, combination);
         }
     }
+    public class Pair : Combination
+    {
+        public override Result WhoWins(string[] player1Cards, string[] player2Cards, char cardValue)
+        {
+            var bobHasPair = player1Cards.Count(x => x.Contains(cardValue)) == 2;
+            var johnHasPair = player2Cards.Count(x => x.Contains(cardValue)) == 2;
+            var combination = "Pair";
+
+            return WhoWinsHelper(cardValue, bobHasPair, johnHasPair, combination);
+        }
+    }
+
+
+
+
+
 }
