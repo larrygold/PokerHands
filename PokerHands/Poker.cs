@@ -19,12 +19,10 @@ namespace PokerHands
                     return WhoWinsPair(bobsCards, johnsCards, value);
             }
 
-
-            foreach (var cardValue in values)
+            foreach (var value in values)
             {
-
-                if (WhoWinsHighCard(bobsCards, johnsCards, cardValue) != null)
-                    return WhoWinsHighCard(bobsCards, johnsCards, cardValue);
+                if (WhoWinsHighCard(bobsCards, johnsCards, value) != null)
+                    return WhoWinsHighCard(bobsCards, johnsCards, value);
             }
 
             return new Result { Winner = "Tie", WinningCard = null, WinningCombination = null };
@@ -33,10 +31,13 @@ namespace PokerHands
 
         private static Result WhoWinsPair(string[] bobsCards, string[] johnsCards, char value)
         {
-            if (bobsCards.Count(x => x.Contains(value)) == 2)
+            var bobHasPair = bobsCards.Count(x => x.Contains(value)) == 2;
+            var johnHasPair = johnsCards.Count(x => x.Contains(value)) == 2;
+
+            if (bobHasPair)
                 return new Result() {Winner = "Bob", WinningCard = null, WinningCombination = "Pair"};
 
-            if (johnsCards.Count(x => x.Contains(value)) == 2)
+            if (johnHasPair)
                 return new Result() {Winner = "John", WinningCard = null, WinningCombination = "Pair"};
 
             return null;
