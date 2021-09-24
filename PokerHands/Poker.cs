@@ -15,18 +15,15 @@ namespace PokerHands
 
             foreach (var value in values)
             {
-                if (bobsCards.Count(x => x.Contains(value)) == 2)
-                    return new Result() { Winner = "Bob", WinningCard = null, WinningCombination = "Pair" };
-
-                else if (johnsCards.Count(x => x.Contains(value)) == 2)
-                    return new Result() { Winner = "John", WinningCard = null, WinningCombination = "Pair" };
+                if (WhoWinsPair(bobsCards, johnsCards, value) != null) 
+                    return WhoWinsPair(bobsCards, johnsCards, value);
             }
 
 
             foreach (var cardValue in values)
             {
-                var whoWins = WhoWins(bobsCards, johnsCards, cardValue).winner;
-                var winningCard = WhoWins(bobsCards, johnsCards, cardValue).winningCard;
+                var whoWins = WhoWinsHighCard(bobsCards, johnsCards, cardValue).winner;
+                var winningCard = WhoWinsHighCard(bobsCards, johnsCards, cardValue).winningCard;
 
                 if (whoWins != null)
                     return new Result() { Winner = whoWins, WinningCard = winningCard, WinningCombination = "High Card" };
@@ -36,7 +33,18 @@ namespace PokerHands
 
         }
 
-        private static (string winner, string winningCard) WhoWins(string[] bobsCards, string[] johnsCards, char value)
+        private static Result WhoWinsPair(string[] bobsCards, string[] johnsCards, char value)
+        {
+            if (bobsCards.Count(x => x.Contains(value)) == 2)
+                return new Result() {Winner = "Bob", WinningCard = null, WinningCombination = "Pair"};
+
+            if (johnsCards.Count(x => x.Contains(value)) == 2)
+                return new Result() {Winner = "John", WinningCard = null, WinningCombination = "Pair"};
+
+            return null;
+        }
+
+        private static (string winner, string winningCard) WhoWinsHighCard(string[] bobsCards, string[] johnsCards, char value)
         {
             var bobWins = bobsCards.Any(x => x.Contains(value));
             var johnWins = johnsCards.Any(x => x.Contains(value));
