@@ -6,7 +6,7 @@ namespace PokerHands
 {
     public static class Poker
     {
-        public static string Compare(string bobsHand, string johnsHand)
+        public static (string, string) Compare(string bobsHand, string johnsHand)
         {
             var bobsCards = bobsHand.Split(" ");
             var johnsCards = johnsHand.Split(" ");
@@ -15,31 +15,32 @@ namespace PokerHands
 
             foreach (var value in values)
             {
-                var whoWins = WhoWins(bobsCards, johnsCards, value);
+                var whoWins = WhoWins(bobsCards, johnsCards, value).winner;
+                var winningCard = WhoWins(bobsCards, johnsCards, value).winningCard;
 
                 if (whoWins != null)
-                    return whoWins;
+                    return (whoWins, winningCard);
             }
 
-            return "Tie";
+            return ("Tie", null);
 
         }
 
-        private static string WhoWins(string[] bobsCards, string[] johnsCards, char value)
+        private static (string winner, string winningCard) WhoWins(string[] bobsCards, string[] johnsCards, char value)
         {
             var bobWins = bobsCards.Any(x => x.Contains(value));
             var johnWins = johnsCards.Any(x => x.Contains(value));
             
             if (bobWins && johnWins)
-                return null;
+                return (null, null);
 
             if (bobWins)
-                return "Bob";
+                return ("Bob", value.ToString());
             
             if (johnWins)
-                return "John";
+                return ("John", value.ToString());
 
-            return null;
+            return (null, null);
 
         }
     }
