@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace PokerHands
@@ -10,15 +11,17 @@ namespace PokerHands
             var bobsCards = bobsHand.Split(" ");
             var johnsCards = johnsHand.Split(" ");
 
-            if (bobsCards.Any(x => x.Contains('A')))
-                return "Bob";
-            else if (johnsCards.Any(x => x.Contains('A')))
-                return "John";
+            var values = new char[] { '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A' };
 
-            if (bobsCards.Any(x => x.Contains('K')))
-                return "Bob";
-            else if (johnsCards.Any(x => x.Contains('K')))
-                return "John";
+            foreach (var value in values.Reverse())
+            {
+                var whoWins = WhoWins(bobsCards, johnsCards, value);
+
+                if (whoWins != null)
+                {
+                    return whoWins;
+                }
+            }
 
             return null;
 
@@ -27,6 +30,21 @@ namespace PokerHands
                 return "Bob";
             return "John";
         */
+        }
+
+        private static string WhoWins(string[] bobsCards, string[] johnsCards, char value)
+        {
+            if (bobsCards.Any(x => x.Contains(value)))
+            {
+                return "Bob";
+            }
+            else if (johnsCards.Any(x => x.Contains(value)))
+            {
+                return "John";
+            }
+
+            return null;
+
         }
     }
 }
