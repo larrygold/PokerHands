@@ -41,11 +41,7 @@ namespace PokerHands
 
         private Result WhoWinsHighCard(string[] bobsCards, string[] johnsCards, char value)
         {
-            var bobHasThisCard = bobsCards.Any(x => x.Contains(value));
-            var johnHasThisCard = johnsCards.Any(x => x.Contains(value));
-            var combination = "High Card";
-
-            return WhoWins(value, bobHasThisCard, johnHasThisCard, combination);
+            return new HighCard().WhoWins(bobsCards, johnsCards, value);
         }
 
         private Result WhoWins(char value, bool bobWins, bool johnWins, string combination)
@@ -72,7 +68,7 @@ namespace PokerHands
 
     public abstract class Combination
     {
-        public abstract Result WhoWins(string player1Cards, string player2Cards, char cardValue);
+        public abstract Result WhoWins(string[] player1Cards, string[] player2Cards, char cardValue);
         protected Result WhoWinsHelper(char value, bool bobWins, bool johnWins, string combination)
         {
             if (bobWins && johnWins)
@@ -91,18 +87,13 @@ namespace PokerHands
 
     public class HighCard : Combination
     {
-        public override Result WhoWins(string player1Cards, string player2Cards, char cardValue)
+        public override Result WhoWins(string[] player1Cards, string[] player2Cards, char cardValue)
         {
-            /*
             var bobHasThisCard = player1Cards.Any(x => x.Contains(cardValue));
             var johnHasThisCard = player2Cards.Any(x => x.Contains(cardValue));
-            */
             var combination = "High Card";
 
-            /*
             return WhoWinsHelper(cardValue, bobHasThisCard, johnHasThisCard, combination);
-            */
-            return null;
         }
     }
 }
