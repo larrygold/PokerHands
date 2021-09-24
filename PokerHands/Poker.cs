@@ -20,13 +20,13 @@ namespace PokerHands
 
             foreach (var value in _cardValuesSortedDesc)
             {
-                if (thereIsPairWinnerWithValue(value, bobsCards, johnsCards)) 
+                if (ThereIsPairWinnerWithValue(value, bobsCards, johnsCards)) 
                     return GetPairResult(bobsCards, johnsCards, value);
             }
 
             foreach (var value in _cardValuesSortedDesc)
             {
-                if (thereIsHighCardWinnerWithValue(value, bobsCards, johnsCards))
+                if (ThereIsHighCardWinnerWithValue(value, bobsCards, johnsCards))
                     return GetHighCardResult(bobsCards, johnsCards, value);
             }
 
@@ -34,14 +34,14 @@ namespace PokerHands
 
         }
 
-        private static bool thereIsPairWinnerWithValue(char value, string[] bobsCards, string[] johnsCards)
+        private static bool ThereIsPairWinnerWithValue(char value, string[] bobsCards, string[] johnsCards)
         {
-            return new Pair().WhoWins(bobsCards, johnsCards, value) != null;
+            return GetPairResult(bobsCards, johnsCards, value) != null;
         }
 
-        private bool thereIsHighCardWinnerWithValue(char value, string[] bobsCards, string[] johnsCards)
+        private bool ThereIsHighCardWinnerWithValue(char value, string[] bobsCards, string[] johnsCards)
         {
-            return new HighCard().WhoWins(bobsCards, johnsCards, value) != null;
+            return GetHighCardResult(bobsCards, johnsCards, value) != null;
         }
 
         private static Result GetPairResult(string[] bobsCards, string[] johnsCards, char value)
