@@ -11,9 +11,12 @@ namespace PokerHands.Tests
         }
 
         [Test]
-        public void Test1()
+        public void Bob_Wins_High_Card()
         {
-            new Poker();
+            var bobsHand = "2H 3D 5S 9C KD";
+            var johnsHand = "2C 3H 4S 8C AH";
+            var winner = Poker.Compare(bobsHand, johnsHand);
+            Assert.AreEqual("Bob", winner);
         }
     }
 }
