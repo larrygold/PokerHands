@@ -11,18 +11,22 @@ namespace PokerHands
             var bobsCards = bobsHand.Split(" ");
             var johnsCards = johnsHand.Split(" ");
 
-            var values = new char[] { 'A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2' };
-
-            if (bobsCards.Count(x => x.Contains('T')) == 2)
-                return new Result() { Winner = "Bob", WinningCard = null, WinningCombination = "Pair" };
-
-            else if (johnsCards.Count(x => x.Contains('T')) == 2)
-                return new Result() { Winner = "John", WinningCard = null, WinningCombination = "Pair" };
+            var values = new char[] { 'A', 'K', 'Q', 'J', 'T' , '9', '8', '7', '6', '5', '4', '3', '2' };
 
             foreach (var value in values)
             {
-                var whoWins = WhoWins(bobsCards, johnsCards, value).winner;
-                var winningCard = WhoWins(bobsCards, johnsCards, value).winningCard;
+                if (bobsCards.Count(x => x.Contains(value)) == 2)
+                    return new Result() { Winner = "Bob", WinningCard = null, WinningCombination = "Pair" };
+
+                else if (johnsCards.Count(x => x.Contains(value)) == 2)
+                    return new Result() { Winner = "John", WinningCard = null, WinningCombination = "Pair" };
+            }
+
+
+            foreach (var cardValue in values)
+            {
+                var whoWins = WhoWins(bobsCards, johnsCards, cardValue).winner;
+                var winningCard = WhoWins(bobsCards, johnsCards, cardValue).winningCard;
 
                 if (whoWins != null)
                     return new Result() { Winner = whoWins, WinningCard = winningCard, WinningCombination = "High Card" };

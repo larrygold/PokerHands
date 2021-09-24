@@ -34,6 +34,7 @@ namespace PokerHands.Tests
 
         [TestCase("2C 3D 5H TS TC", "1S 3H 5D TC KC", "Bob", null, TestName =  "Bob Pair T")]
         [TestCase("2C 3D 5H QS TC", "1S 3H 5D TS TC", "John", null, TestName = "John Pair T")]
+        [TestCase("2C 3D 5D QS TC", "1S 3D 3S QS TC", "John", null, TestName = "John Pair S")]
         public void Pairs(string bobsHand, string johnsHand, string winnerExpected, string winningCardExpected)
         {
             var actual = Poker.Compare(bobsHand, johnsHand);
