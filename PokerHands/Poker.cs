@@ -15,28 +15,48 @@ namespace PokerHands
 
             foreach (var value in values)
             {
-                if (WhoWinsPair(bobsCards, johnsCards, value) != null) 
-                    return WhoWinsPair(bobsCards, johnsCards, value);
+                if (thereIsPairWinnerWithValue(value, bobsCards, johnsCards)) 
+                    return GetPairResult(bobsCards, johnsCards, value);
             }
 
             foreach (var value in values)
             {
-                if (WhoWinsHighCard(bobsCards, johnsCards, value) != null)
-                    return WhoWinsHighCard(bobsCards, johnsCards, value);
+                if (thereIsHighCardWinnerWithValue(value, bobsCards, johnsCards))
+                    return GetHighCardResult(bobsCards, johnsCards, value);
             }
 
-            return new Result { Winner = "Tie", WinningCard = null, WinningCombination = null };
+            return GetTieResult();
 
         }
 
-        private Result WhoWinsPair(string[] bobsCards, string[] johnsCards, char value)
+        private static Result GetTieResult()
         {
-            return new Pair().WhoWins(bobsCards, johnsCards, value);
+            return new Result { Winner = "Tie", WinningCard = null, WinningCombination = null };
+        }
+
+        private Result GetHighCardResult(string[] bobsCards, string[] johnsCards, char value)
+        {
+            return new HighCard().WhoWins(bobsCards, johnsCards, value);
+        }
+
+        private bool thereIsHighCardWinnerWithValue(char value, string[] bobsCards, string[] johnsCards)
+        {
+            return new HighCard().WhoWins(bobsCards, johnsCards, value) != null;
         }
 
         private Result WhoWinsHighCard(string[] bobsCards, string[] johnsCards, char value)
         {
             return new HighCard().WhoWins(bobsCards, johnsCards, value);
+        }
+
+        private static Result GetPairResult(string[] bobsCards, string[] johnsCards, char value)
+        {
+            return new Pair().WhoWins(bobsCards, johnsCards, value);
+        }
+
+        private static bool thereIsPairWinnerWithValue(char value, string[] bobsCards, string[] johnsCards)
+        {
+            return new Pair().WhoWins(bobsCards, johnsCards, value) != null;
         }
     }
 
@@ -88,9 +108,4 @@ namespace PokerHands
             return WhoWinsHelper(cardValue, bobHasPair, johnHasPair, combination);
         }
     }
-
-
-
-
-
 }
