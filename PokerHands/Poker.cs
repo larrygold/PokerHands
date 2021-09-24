@@ -16,6 +16,9 @@ namespace PokerHands
             if (bobsCards.Count(x => x.Contains('T')) == 2)
                 return new Result() { Winner = "Bob", WinningCard = null, WinningCombination = "Pair" };
 
+            else if (johnsCards.Count(x => x.Contains('T')) == 2)
+                return new Result() { Winner = "John", WinningCard = null, WinningCombination = "Pair" };
+
             foreach (var value in values)
             {
                 var whoWins = WhoWins(bobsCards, johnsCards, value).winner;
