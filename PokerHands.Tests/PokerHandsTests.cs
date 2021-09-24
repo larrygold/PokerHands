@@ -16,7 +16,7 @@ namespace PokerHands.Tests
         [TestCase("2H 3D 5S 9C KD", "2H 3D 5S 9C DS", "Bob", "K", TestName = "K Bob")]
         [TestCase("2C 3H 4S 8C KD", "2H 3D 5S 9C KD", "John", "9", TestName = "John 2nd highest")]
         [TestCase("2C 3H 5S 9C KD", "2H 3D 4S 9C KD", "Bob", "5", TestName = "Bob 3rd highest")]
-        public void Wins_High_Card(string bobsHand, string johnsHand, string winnerExpected, string winningCardExpected)
+        public void High_Card(string bobsHand, string johnsHand, string winnerExpected, string winningCardExpected)
         {
             var actual = Poker.Compare(bobsHand, johnsHand);
             var expected = new Result() { Winner = winnerExpected, WinningCard = winningCardExpected, WinningCombination = "High Card" };
@@ -32,9 +32,9 @@ namespace PokerHands.Tests
 
         }
 
-        [TestCase("2C 3D 5H TS TC", "1S 3H 5D TC KC", "Bob", null, TestName =  "Bob Pair T")]
-        [TestCase("2C 3D 5H QS TC", "1S 3H 5D TS TC", "John", null, TestName = "John Pair T")]
-        [TestCase("2C 3D 5D QS TC", "1S 3D 3S QS TC", "John", null, TestName = "John Pair S")]
+        [TestCase("2C 3D 5H TS TC", "1S 3H 5D TC KC", "Bob", "T", TestName =  "Bob Pair T")]
+        [TestCase("2C 3D 5H QS TC", "1S 3H 5D TS TC", "John", "T", TestName = "John Pair T")]
+        [TestCase("2C 3D 5D QS TC", "1S 3D 3S QS TC", "John", "3", TestName = "John Pair 3")]
         public void Pairs(string bobsHand, string johnsHand, string winnerExpected, string winningCardExpected)
         {
             var actual = Poker.Compare(bobsHand, johnsHand);
@@ -42,7 +42,7 @@ namespace PokerHands.Tests
             expected.Should().BeEquivalentTo(actual);
         }
 
-        [TestCase("2C 3D 3H QS TC", "1S 3D 3S QS QD", "John", null, "Pair", TestName = "John's pair is higher than Bob's")]
+        [TestCase("2C 3D 3H QS TC", "1S 3D 3S QS QD", "John", "Q", "Pair", TestName = "John's pair is higher than Bob's")]
         [TestCase("1C 2D 3H QS QH", "1S 2D 4S QS QD", "John", "4", "High Card", TestName = "John's highest remaining card is higher than Bob's")]
         public void Two_Pairs(string bobsHand, string johnsHand, string winnerExpected, string winningCardExpected, string winningCombination)
         {

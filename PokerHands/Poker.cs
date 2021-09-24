@@ -38,10 +38,10 @@ namespace PokerHands
                 return null;
 
             if (bobHasPair)
-                return new Result() {Winner = "Bob", WinningCard = null, WinningCombination = "Pair"};
+                return new Result() {Winner = "Bob", WinningCard = value.ToString(), WinningCombination = "Pair"};
 
             if (johnHasPair)
-                return new Result() {Winner = "John", WinningCard = null, WinningCombination = "Pair"};
+                return new Result() {Winner = "John", WinningCard = value.ToString(), WinningCombination = "Pair"};
 
             return null;
         }
