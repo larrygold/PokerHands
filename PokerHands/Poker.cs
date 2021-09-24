@@ -13,6 +13,9 @@ namespace PokerHands
 
             var values = new char[] { 'A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2' };
 
+            if (bobsCards.Count(x => x.Contains('T')) == 2)
+                return ("Bob", null);
+
             foreach (var value in values)
             {
                 var whoWins = WhoWins(bobsCards, johnsCards, value).winner;

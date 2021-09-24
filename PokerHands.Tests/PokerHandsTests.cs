@@ -21,5 +21,12 @@ namespace PokerHands.Tests
             var winnerAndWinningCard = Poker.Compare(bobsHand, johnsHand);
             Assert.AreEqual((winnerExpected, winningCardExpected), winnerAndWinningCard);
         }
+
+        [TestCase("2C 3D 5H TS TC", "1S 3H 5D TC KC", "Bob", null, TestName =  "Bob Pair")]
+        public void Pairs(string bobsHand, string johnsHand, string winnerExpected, string winningCardExpected)
+        {
+            var winnerAndWinningCard = Poker.Compare(bobsHand, johnsHand);
+            Assert.AreEqual((winnerExpected, winningCardExpected), winnerAndWinningCard);
+        }
     }
 }
