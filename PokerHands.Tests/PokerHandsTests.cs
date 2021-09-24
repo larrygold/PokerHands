@@ -42,11 +42,12 @@ namespace PokerHands.Tests
             expected.Should().BeEquivalentTo(actual);
         }
 
-        [TestCase("2C 3D 3H QS TC", "1S 3D 3S QS QD", "John", null, TestName = "John's pair is higher than Bob's")]
-        public void Two_Pairs(string bobsHand, string johnsHand, string winnerExpected, string winningCardExpected)
+        [TestCase("2C 3D 3H QS TC", "1S 3D 3S QS QD", "John", null, "Pair", TestName = "John's pair is higher than Bob's")]
+        [TestCase("1C 2D 3H QS QH", "1S 2D 4S QS QD", "John", "4", "High Card", TestName = "John's highest remaining card is higher than Bob's")]
+        public void Two_Pairs(string bobsHand, string johnsHand, string winnerExpected, string winningCardExpected, string winningCombination)
         {
             var actual = Poker.Compare(bobsHand, johnsHand);
-            var expected = new Result() { Winner = winnerExpected, WinningCard = winningCardExpected, WinningCombination = "Pair" };
+            var expected = new Result() { Winner = winnerExpected, WinningCard = winningCardExpected, WinningCombination = winningCombination };
             expected.Should().BeEquivalentTo(actual);
         }
 

@@ -34,6 +34,9 @@ namespace PokerHands
             var bobHasPair = bobsCards.Count(x => x.Contains(value)) == 2;
             var johnHasPair = johnsCards.Count(x => x.Contains(value)) == 2;
 
+            if (bobHasPair && johnHasPair)
+                return null;
+
             if (bobHasPair)
                 return new Result() {Winner = "Bob", WinningCard = null, WinningCombination = "Pair"};
 
