@@ -22,11 +22,9 @@ namespace PokerHands
 
             foreach (var cardValue in values)
             {
-                var whoWins = WhoWinsHighCard(bobsCards, johnsCards, cardValue).winner;
-                var winningCard = WhoWinsHighCard(bobsCards, johnsCards, cardValue).winningCard;
 
-                if (whoWins != null)
-                    return new Result() { Winner = whoWins, WinningCard = winningCard, WinningCombination = "High Card" };
+                if (WhoWinsHighCard(bobsCards, johnsCards, cardValue) != null)
+                    return WhoWinsHighCard(bobsCards, johnsCards, cardValue);
             }
 
             return new Result { Winner = "Tie", WinningCard = null, WinningCombination = null };
@@ -44,21 +42,21 @@ namespace PokerHands
             return null;
         }
 
-        private static (string winner, string winningCard) WhoWinsHighCard(string[] bobsCards, string[] johnsCards, char value)
+        private static Result WhoWinsHighCard(string[] bobsCards, string[] johnsCards, char value)
         {
             var bobWins = bobsCards.Any(x => x.Contains(value));
             var johnWins = johnsCards.Any(x => x.Contains(value));
             
             if (bobWins && johnWins)
-                return (null, null);
+                return null;
 
             if (bobWins)
-                return ("Bob", value.ToString());
+                return new Result() { Winner = "Bob", WinningCard = value.ToString(), WinningCombination = "High Card"};
             
             if (johnWins)
-                return ("John", value.ToString());
+                return new Result() { Winner = "John", WinningCard = value.ToString(), WinningCombination = "High Card"};
 
-            return (null, null);
+            return null;
 
         }
     }
