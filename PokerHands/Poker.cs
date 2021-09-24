@@ -34,13 +34,10 @@ namespace PokerHands
                 return null;
 
             if (bobWins)
-            {
                 return "Bob";
-            }
+            
             if (johnWins)
-            {
                 return "John";
-            }
 
             return null;
 
