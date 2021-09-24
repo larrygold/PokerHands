@@ -25,20 +25,21 @@ namespace PokerHands
 
             return null;
 
-            /*
-            if (bobsHand == "2H 3D 5S 9C AS")
-                return "Bob";
-            return "John";
-        */
         }
 
         private static string WhoWins(string[] bobsCards, string[] johnsCards, char value)
         {
-            if (bobsCards.Any(x => x.Contains(value)))
+            var bobWins = bobsCards.Any(x => x.Contains(value));
+            var johnWins = johnsCards.Any(x => x.Contains(value));
+            
+            if (bobWins && johnWins)
+                return null;
+
+            if (bobWins)
             {
                 return "Bob";
             }
-            else if (johnsCards.Any(x => x.Contains(value)))
+            if (johnWins)
             {
                 return "John";
             }
