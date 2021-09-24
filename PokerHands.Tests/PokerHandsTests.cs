@@ -10,13 +10,12 @@ namespace PokerHands.Tests
         {
         }
 
-        [Test]
-        public void Bob_Wins_High_Card()
+        [TestCase("2H 3D 5S 9C KD", "2C 3H 4S 8C AH", "John", TestName = "High card wins")]
+        [TestCase("2H 3D 5S 9C AS", "2H 3D 5S 9C KD", "Bob")]
+        public void Wins_High_Card(string bobsHand, string johnsHand, string winnerExpected)
         {
-            var bobsHand = "2H 3D 5S 9C KD";
-            var johnsHand = "2C 3H 4S 8C AH";
             var winner = Poker.Compare(bobsHand, johnsHand);
-            Assert.AreEqual("Bob", winner);
+            Assert.AreEqual(winnerExpected, winner);
         }
     }
 }
