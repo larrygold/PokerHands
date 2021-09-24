@@ -33,35 +33,33 @@ namespace PokerHands
         {
             var bobHasPair = bobsCards.Count(x => x.Contains(value)) == 2;
             var johnHasPair = johnsCards.Count(x => x.Contains(value)) == 2;
+            var combination = "Pair";
 
-            if (bobHasPair && johnHasPair)
-                return null;
+            return WhoWins(value, bobHasPair, johnHasPair, combination);
 
-            if (bobHasPair)
-                return new Result() {Winner = "Bob", WinningCard = value.ToString(), WinningCombination = "Pair"};
-
-            if (johnHasPair)
-                return new Result() {Winner = "John", WinningCard = value.ToString(), WinningCombination = "Pair"};
-
-            return null;
         }
 
         private static Result WhoWinsHighCard(string[] bobsCards, string[] johnsCards, char value)
         {
-            var bobWins = bobsCards.Any(x => x.Contains(value));
-            var johnWins = johnsCards.Any(x => x.Contains(value));
-            
+            var bobHasThisCard = bobsCards.Any(x => x.Contains(value));
+            var johnHasThisCard = johnsCards.Any(x => x.Contains(value));
+            var combination = "High Card";
+
+            return WhoWins(value, bobHasThisCard, johnHasThisCard, combination);
+        }
+
+        private static Result WhoWins(char value, bool bobWins, bool johnWins, string combination)
+        {
             if (bobWins && johnWins)
                 return null;
 
             if (bobWins)
-                return new Result() { Winner = "Bob", WinningCard = value.ToString(), WinningCombination = "High Card"};
-            
+                return new Result() {Winner = "Bob", WinningCard = value.ToString(), WinningCombination = combination};
+
             if (johnWins)
-                return new Result() { Winner = "John", WinningCard = value.ToString(), WinningCombination = "High Card"};
+                return new Result() {Winner = "John", WinningCard = value.ToString(), WinningCombination = combination};
 
             return null;
-
         }
     }
 
