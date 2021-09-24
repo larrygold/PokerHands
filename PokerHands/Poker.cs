@@ -12,8 +12,15 @@ namespace PokerHands
 
             if (bobsCards.Any(x => x.Contains('A')))
                 return "Bob";
-            else
+            else if (johnsCards.Any(x => x.Contains('A')))
                 return "John";
+
+            if (bobsCards.Any(x => x.Contains('K')))
+                return "Bob";
+            else if (johnsCards.Any(x => x.Contains('K')))
+                return "John";
+
+            return null;
 
             /*
             if (bobsHand == "2H 3D 5S 9C AS")
