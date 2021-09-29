@@ -18,6 +18,10 @@ namespace PokerHands
             var bobsCards = bobsHand.Split(" ");
             var johnsCards = johnsHand.Split(" ");
 
+            
+            /*
+            Dommage ici car on fait 2 fois la boucle. On peut les fusionner!            
+            */
             foreach (var value in _cardValuesSortedDesc)
             {
                 if (ThereIsPairWinnerWithValue(value, bobsCards, johnsCards)) 
@@ -33,7 +37,7 @@ namespace PokerHands
             return GetTieResult();
 
         }
-
+        
         private static bool ThereIsPairWinnerWithValue(char value, string[] bobsCards, string[] johnsCards)
         {
             return GetPairResult(bobsCards, johnsCards, value) != null;
@@ -67,6 +71,9 @@ namespace PokerHands
         public string WinningCombination { get; set; }
     }
 
+    //C'est un bon reflexe d'utiliser des classes abstraites, mais ma reco aurait été d'associer une classe combination à un joueur (un joueur, c'est un nom et une combination au final)
+    //Pour classer les combination, on aurait pu imaginer une méthode qui renvoit un score par ex (genre 0 pour highcard, 1 pour pair, 2 pour double pair...), avec une méthode à côté en cas d'égalité
+    //Toujours se ramener au fonctionnel au final, c'est comme ça qu'on peut commencer à tracer une architecture :)
     public abstract class Combination
     {
         public abstract Result WhoWins(string[] player1Cards, string[] player2Cards, char cardValue);
